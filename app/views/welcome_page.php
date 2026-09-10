@@ -14,15 +14,15 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --lava: #dd4814;
-            --lava-dim: #b83a10;
-            --lava-glow: rgba(221,72,20,0.15);
-            --lava-glow-strong: rgba(221,72,20,0.25);
+            --lava: #f472b6;
+            --lava-dim: #db2777;
+            --lava-glow: rgba(244,114,182,0.15);
+            --lava-glow-strong: rgba(244,114,182,0.25);
             --bg: #0a0a0b;
             --bg2: #111113;
             --bg3: #18181b;
             --border: rgba(255,255,255,0.07);
-            --border-hot: rgba(221,72,20,0.35);
+            --border-hot: rgba(244,114,182,0.35);
             --text: #f4f4f5;
             --text-muted: #71717a;
             --text-dim: #3f3f46;
@@ -76,12 +76,12 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         .orb-1 {
             width: 600px; height: 600px;
             top: -200px; left: -100px;
-            background: radial-gradient(circle, rgba(221,72,20,0.12) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(244,114,182,0.12) 0%, transparent 70%);
         }
         .orb-2 {
             width: 400px; height: 400px;
             top: 200px; right: -100px;
-            background: radial-gradient(circle, rgba(221,72,20,0.07) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(244,114,182,0.07) 0%, transparent 70%);
         }
 
         /* ── LAYOUT ── */
@@ -173,7 +173,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(221,72,20,0.1);
+            background: rgba(244,114,182,0.1);
             border: 1px solid var(--border-hot);
             color: #f97316;
             font-size: 0.75rem;
@@ -371,7 +371,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
         .feature-icon {
             width: 40px; height: 40px;
-            background: rgba(221,72,20,0.1);
+            background: rgba(244,114,182,0.1);
             border: 1px solid var(--border-hot);
             border-radius: 10px;
             display: flex;
@@ -471,7 +471,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         .dir-item:hover {
             border-color: var(--border-hot);
             color: var(--text);
-            background: rgba(221,72,20,0.05);
+            background: rgba(244,114,182,0.05);
         }
 
         .dir-item .dir-icon { color: var(--lava); font-size: 0.9rem; }
@@ -747,7 +747,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             <span>memory <span><?php echo lava_instance()->performance->memory_usage(); ?></span></span>
             <?php if(config_item('environment') === 'development'): ?>
             <span>version <span><?php echo config_item('version'); ?></span></span>
-            <span style="color: #dd4814;">● development</span>
+            <span style="color: #f472b6;">● development</span>
             <?php endif; ?>
         </div>
         <div class="footer-links">

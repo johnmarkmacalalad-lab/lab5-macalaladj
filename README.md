@@ -156,6 +156,44 @@ lavalust/
 
 ## Configuration
 
+## Laboratory Exercise 5
+
+This project now includes a session-authenticated product CRUD workflow:
+
+- `GET /login` and `POST /login`
+- `GET /products`
+- `GET|POST /products/create`
+- `GET|POST /products/edit/{id}`
+- `POST /products/delete/{id}`
+- `POST /logout`
+
+Copy `.env.example` to `.env` for local configuration. The development login defaults to `admin` / `admin123` only when `APP_PASSWORD_HASH` is empty. Set `APP_USER` and a generated `APP_PASSWORD_HASH` before deployment. Never commit `.env` or database credentials.
+
+### Aiven setup
+
+Set the Aiven values in the environment variables `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME`. Run the migration through the LavaLust migration mechanism, or execute this SQL in Aiven's console:
+
+```sql
+CREATE TABLE products (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    description TEXT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### Render deployment
+
+Use the repository root as the service directory and set the start command to:
+
+```bash
+php -S 0.0.0.0:$PORT -t public
+```
+
+Add the same `DB_*`, `APP_USER`, `APP_PASSWORD_HASH`, and `APP_ENV=production` values as Render environment variables. Set `base_url` to the deployed URL when needed by the hosting setup.
+
 ### Database
 
 **File:** `app/config/database.php`

@@ -56,8 +56,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
   --text-primary: #eef2ff;
   --text-secondary: #9ca3c7;
   --text-muted: #6b728c;
-  --accent-primary: #dd4814;
-  --accent-glow: rgba(221,72,20,0.25);
+  --accent-primary: #f472b6;
+  --accent-glow: rgba(244,114,182,0.25);
   --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
   --font-sans: system-ui, -apple-system, 'Segoe UI', 'Inter', 'Roboto', sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', monospace;
@@ -98,8 +98,8 @@ body {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--accent-primary);
-  background: rgba(221,72,20,0.12);
-  border: 1px solid rgba(221,72,20,0.25);
+  background: rgba(244,114,182,0.12);
+  border: 1px solid rgba(244,114,182,0.25);
   border-radius: 40px;
   padding: 0.25rem 0.8rem;
   display: inline-block;
@@ -154,7 +154,7 @@ h1 {
 .btn-primary:hover {
   background: #b83c0f;
   transform: scale(0.98);
-  box-shadow: 0 2px 5px rgba(221,72,20,0.3);
+  box-shadow: 0 2px 5px rgba(244,114,182,0.3);
 }
 
 .btn-secondary {
