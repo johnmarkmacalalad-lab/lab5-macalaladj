@@ -171,7 +171,9 @@ Copy `.env.example` to `.env` for local configuration. The development login def
 
 ### Aiven setup
 
-Set the Aiven values in the environment variables `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME`. Run the migration through the LavaLust migration mechanism, or execute this SQL in Aiven's console:
+Set the Aiven values in the environment variables `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME`. The app defaults to MySQL on port `3306` and accepts common aliases such as `DB_USERNAME` and `DB_DATABASE`.
+
+For a fresh database, run the migrations before opening the app. For an existing `products` table, run the new `004_ensure_products_id` migration once, or execute this SQL in Aiven's console:
 
 ```sql
 CREATE TABLE products (
@@ -184,6 +186,13 @@ CREATE TABLE products (
 );
 ```
 
+If the table already exists without an ID column, use:
+
+```sql
+ALTER TABLE products
+    ADD COLUMN id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY;
+```
+
 ### Render deployment
 
 Use the repository root as the service directory and set the start command to:
@@ -192,7 +201,7 @@ Use the repository root as the service directory and set the start command to:
 php -S 0.0.0.0:$PORT -t public
 ```
 
-Add the same `DB_*`, `APP_USER`, `APP_PASSWORD_HASH`, and `APP_ENV=production` values as Render environment variables. Set `base_url` to the deployed URL when needed by the hosting setup.
+Add the same `DB_*`, `APP_USER`, `APP_PASSWORD_HASH`, and `APP_ENV=production` values as Render environment variables. Render does not provide a persistent MySQL database, so use Aiven (or another managed MySQL provider) for the `DB_*` values. Set `base_url` to the deployed URL when needed by the hosting setup.
 
 ### Database
 

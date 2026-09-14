@@ -13,12 +13,12 @@
 <header><div><h1>Tindahan ni JM</h1><div class="sub">Signed in as <?= htmlspecialchars($user, ENT_QUOTES, 'UTF-8') ?></div></div><form method="post" action="/logout"><button type="submit">Log out</button></form></header>
 <main>
     <div class="toolbar"><strong><?= count($products) ?> product(s)</strong><a class="button primary" href="/products/create">Add product</a></div>
-    <div class="table-wrap"><table><thead><tr><th>Name</th><th>Description</th><th>Price</th><th>Quantity</th><th>Created</th><th>Actions</th></tr></thead><tbody>
+    <div class="table-wrap"><table><thead><tr><th>ID</th><th>Name</th><th>Description</th><th>Price</th><th>Quantity</th><th>Created</th><th>Actions</th></tr></thead><tbody>
     <?php foreach ($products as $product): ?><tr>
-        <td><?= htmlspecialchars($product->product_name, ENT_QUOTES, 'UTF-8') ?></td><td><?= htmlspecialchars($product->description ?? '', ENT_QUOTES, 'UTF-8') ?></td><td>₱<?= number_format((float) $product->price, 2) ?></td><td><?= (int) $product->quantity ?></td><td><?= htmlspecialchars($product->created_at, ENT_QUOTES, 'UTF-8') ?></td>
+        <td><?= (int) $product->id ?></td><td><?= htmlspecialchars($product->product_name, ENT_QUOTES, 'UTF-8') ?></td><td><?= htmlspecialchars($product->description ?? '', ENT_QUOTES, 'UTF-8') ?></td><td>₱<?= number_format((float) $product->price, 2) ?></td><td><?= (int) $product->quantity ?></td><td><?= htmlspecialchars($product->created_at, ENT_QUOTES, 'UTF-8') ?></td>
         <td class="actions"><a href="/products/edit/<?= (int) $product->id ?>">Edit</a><form method="post" action="/products/delete/<?= (int) $product->id ?>" onsubmit="return confirm('Delete this product?')"><button class="danger" type="submit">Delete</button></form></td>
     </tr><?php endforeach; ?>
-    <?php if (empty($products)): ?><tr><td colspan="6">No products yet. Add the first one.</td></tr><?php endif; ?>
+    <?php if (empty($products)): ?><tr><td colspan="7">No products yet. Add the first one.</td></tr><?php endif; ?>
     </tbody></table></div>
 </main>
 </body>

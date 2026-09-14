@@ -7,12 +7,15 @@ class Products extends Controller
     {
         parent::__construct();
         $this->call->database();
+        $this->call->library('migration');
+        ob_start();
+        try {
+            $this->migration->migrate();
+        } finally {
+            ob_end_clean();
+        }
         $this->call->model('Product_model');
 
-        if (!$this->session->has_userdata('user')) {
-            redirect('/login');
-            exit;
-        }
     }
 
     public function index()
@@ -37,6 +40,7 @@ class Products extends Controller
 
     public function edit($id)
     {
+        $id = $this->product_id($id);
         $product = $this->Product_model->find_product($id);
         if (!$product) {
             show_404();
@@ -46,6 +50,7 @@ class Products extends Controller
 
     public function update($id)
     {
+        $id = $this->product_id($id);
         $this->Product_model->update_product($id, $this->validated_input());
         redirect('/products');
         exit;
@@ -53,6 +58,7 @@ class Products extends Controller
 
     public function delete($id)
     {
+        $id = $this->product_id($id);
         $this->Product_model->delete_product($id);
         redirect('/products');
         exit;
@@ -66,5 +72,14 @@ class Products extends Controller
             'price' => number_format((float) ($_POST['price'] ?? 0), 2, '.', ''),
             'quantity' => max(0, (int) ($_POST['quantity'] ?? 0)),
         ];
+    }
+
+    private function product_id($id)
+    {
+        if (filter_var($id, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) === false) {
+            show_404();
+        }
+
+        return (int) $id;
     }
 }

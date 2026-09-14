@@ -57,17 +57,28 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 |   Example: $database['another_example'] = array('key' => 'value')
 */
 
+$env = static function (array $names, $default = '') {
+    foreach ($names as $name) {
+        $value = getenv($name);
+        if ($value !== false && $value !== '') {
+            return $value;
+        }
+    }
+
+    return $default;
+};
+
+$driver = strtolower((string) $env(['DB_DRIVER'], 'mysql'));
 $database['main'] = array(
-    'driver'	=> getenv('DB_DRIVER') ?: '',
-    'hostname'	=> getenv('DB_HOST') ?: '',
-    'port'		=> getenv('DB_PORT') ?: '',
-    'username'	=> getenv('DB_USER') ?: '',
-    'password'	=> getenv('DB_PASSWORD') ?: '',
-    'database'	=> getenv('DB_NAME') ?: '',
-    'charset'	=> getenv('DB_CHARSET') ?: '',
-    'dbprefix'	=> getenv('DB_PREFIX') ?: '',
-    // Optional for SQLite
-    'path'      => ''
+    'driver' => $driver,
+    'hostname' => $env(['DB_HOST', 'MYSQL_HOST', 'PGHOST'], 'localhost'),
+    'port' => $env(['DB_PORT', 'MYSQL_PORT', 'PGPORT'], $driver === 'pgsql' ? '5432' : '3306'),
+    'username' => $env(['DB_USER', 'DB_USERNAME', 'MYSQL_USER', 'PGUSER'], 'root'),
+    'password' => $env(['DB_PASSWORD', 'MYSQL_PASSWORD', 'PGPASSWORD'], ''),
+    'database' => $env(['DB_NAME', 'DB_DATABASE', 'MYSQL_DATABASE', 'PGDATABASE'], ''),
+    'charset' => $env(['DB_CHARSET'], 'utf8mb4'),
+    'dbprefix' => $env(['DB_PREFIX'], ''),
+    'path'      => $env(['DB_PATH'], '')
 );
 
 ?>

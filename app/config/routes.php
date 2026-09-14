@@ -50,9 +50,11 @@ $router->get('/login', 'Auth::login');
 $router->post('/login', 'Auth::login');
 $router->post('/logout', 'Auth::logout');
 
-$router->get('/products', 'Products::index');
-$router->get('/products/create', 'Products::create');
-$router->post('/products/create', 'Products::store');
-$router->get('/products/edit/{id}', 'Products::edit');
-$router->post('/products/edit/{id}', 'Products::update');
-$router->post('/products/delete/{id}', 'Products::delete');
+$router->group(['middleware' => 'auth'], function ($router) {
+	$router->get('/products', 'Products::index');
+	$router->get('/products/create', 'Products::create');
+	$router->post('/products/create', 'Products::store');
+	$router->get('/products/edit/{id}', 'Products::edit');
+	$router->post('/products/edit/{id}', 'Products::update');
+	$router->post('/products/delete/{id}', 'Products::delete');
+});
